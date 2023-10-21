@@ -1,9 +1,9 @@
-﻿namespace VObject.Extensions
+﻿namespace VObject
 {
-	/// <summary>
-	/// Provides validation extension methods for the <see cref="object"/> class.
-	/// </summary>
-	public static class ObjectValidationExt
+    /// <summary>
+    /// Provides validation extension methods for the <see cref="object"/> class.
+    /// </summary>
+    public static class ObjectValidationExt
     {
         /// <summary>
         /// Determines whether the <paramref name="value"/> is <see langword="null"/>.

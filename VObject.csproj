@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <ApplicationIcon>Virtma Logo.ico</ApplicationIcon>
+    <SignAssembly>True</SignAssembly>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>VObject</Title>
+    <Authors>Daniel K. Valente</Authors>
+    <Company>D.O.F.T.</Company>
+    <Product>VAdvance</Product>
+    <Description>A more advanced object that inherits from the object class.
+Provides additional information on an object, more functionalities, and implicit conversions.</Description>
+    <Copyright>Apache License 2.0</Copyright>
+    <PackageTags>object;vobject;obj;vadvance;data;information;cs;c#;processing;validation</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackAsTool>True</PackAsTool>
+    <PackageLicenseExpression>Apache License 2.0</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Virtma Logo.ico" />
+  </ItemGroup>
+
+</Project>

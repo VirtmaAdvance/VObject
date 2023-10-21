@@ -21,7 +21,22 @@
         /// Determines whether the <paramref name="value"/> is a COMObject
         /// </summary>
         public static bool IsComObject(this object value) => value.NotNull() && System.Runtime.InteropServices.Marshal.IsComObject(value);
-
+        /// <inheritdoc cref="IsNull(object)"/>
+        /// <summary>
+        /// Determines if the <paramref name="value"/> inherits from one of the provided <paramref name="types"/>.
+        /// </summary>
+        /// <param name="value">An <see cref="object"/> representation of a value that will be checked.</param>
+        /// <param name="types">A <see cref="Type"/> array representing all of the types to check the <paramref name="value"/> data-type against.</param>
+        public static bool Is(this object value, params Type[] types)
+        {
+            if(value.NotNull() && !value.IsComObject())
+            {
+                types??=Array.Empty<Type>();
+                Type valueType=value.GetType();
+                return types.Any(q =>valueType.IsAssignableFrom(q));
+            }
+            return false;
+        }
 
     }
 }

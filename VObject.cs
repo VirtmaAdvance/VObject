@@ -115,5 +115,35 @@ namespace VObject
 		public static implicit operator VObject(Comparer value) => new(value);
 
 
+		public string ToString()
+		{
+			if(IsNull)
+				return "null";
+			if(IsComObject)
+				return "COMObject";
+			if(Value is string strVal)
+				return strVal;
+			if(Value is Exception excVal)
+				return excVal.Message;
+			if(Value is char charVal)
+				return charVal.ToString();
+		}
+
+		public static string GetStringRepresentation(object value)
+		{
+			if(value is null)
+				return "null";
+			if(System.Runtime.InteropServices.Marshal.IsComObject(value))
+				return "COMObject";
+			if(value is string strVal)
+				return strVal;
+			if(value is Exception excVal)
+				return excVal.Message;
+			if(value is char charVal)
+				return charVal.ToString();
+
+		}
+
+
 	}
 }

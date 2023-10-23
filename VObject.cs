@@ -115,36 +115,88 @@ namespace VObject
 		public static implicit operator VObject(Comparer value) => new(value);
 
 
-		public string ToString()
-		{
-			if(IsNull)
-				return "null";
-			if(IsComObject)
-				return "COMObject";
-			if(Value is string strVal)
-				return strVal;
-			if(Value is Exception excVal)
-				return excVal.Message;
-			if(Value is char charVal)
-				return charVal.ToString();
-		}
+		public string ToString() => GetStringRepresentation(Value);
 
-		public static string GetStringRepresentation(object value)
+		public static string GetStringRepresentation(object value, bool addQuotes=false)
 		{
-			is
 			if(value is null)
 				return "null";
 			if(System.Runtime.InteropServices.Marshal.IsComObject(value))
 				return "COMObject";
 			if(value is string strVal)
-				return strVal;
-			if(value is Exception excVal)
-				return excVal.Message;
+				return addQuotes ? "\""+strVal+"\"" : strVal;
+			if(value is Exception valueAsException)
+				return valueAsException.Source + ": " + valueAsException.Message + "\r\n" + valueAsException.StackTrace;
 			if(value is char charVal)
-				return charVal.ToString();
+				return addQuotes ? "'" + charVal.ToString() + "'" : charVal.ToString();
+			if(value is bool boolVal)
+				return boolVal ? "true" : "false";
+			if(value is byte byteValue)
+				return byteValue.ToString("X2");
 			if(value.IsNumber())
-				return value.ToString();
-			return "";
+				return value.ToString()!;
+			if(value is DateTime dtVal)
+				return dtVal.ToString("MM-dd-yyyy | hh:mm:ss:fffffff tt");
+			if(value is IDictionary dictVal)
+				return GetStringFromCollection(dictVal);
+			if(value is IEnumerable enumerableVal)
+				return GetStringFromCollection(enumerableVal);
+			return value.ToString()!;
+		}
+
+		private static string GetStringFromClass(object classObject)
+		{
+			Type type=classObject.GetType();
+			System.Reflection.MemberInfo[] l=type.GetMembers();
+			string res="class " + classObject.ToString() + "{";
+			foreach(var sel in l)
+				res+="\n\t"+
+		}
+
+		private static string Serialize(System.Reflection.MemberInfo value)
+		{
+
+		}
+		/// <summary>
+		/// Gets the access modifier of the member.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		private static string GetAccessModifier(System.Reflection.MemberInfo value)
+		{
+			switch(value.MemberType)
+			{
+				case System.Reflection.MemberTypes.Field:
+					return ((System.Reflection.FieldInfo)value).IsPublic ? "public" : ((System.Reflection.FieldInfo)value).IsPrivate ? "private" : ((System.Reflection.FieldInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
+				case System.Reflection.MemberTypes.Method:
+					return ((System.Reflection.MethodInfo)value).IsPublic ? "public" : ((System.Reflection.MethodInfo)value).IsPrivate ? "private" : ((System.Reflection.MethodInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
+				case System.Reflection.MemberTypes.Constructor:
+					return ((System.Reflection.ConstructorInfo)value).IsPublic ? "public" : ((System.Reflection.ConstructorInfo)value).IsPrivate ? "private" : ((System.Reflection.ConstructorInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
+				case System.Reflection.MemberTypes.TypeInfo:
+					return ((System.Reflection.TypeInfo)value).IsPublic ? "public" : ((System.Reflection.TypeInfo)value).IsNotPublic ? "private" : "UNKNOWN";
+			}
+			return "UNKNOWN";
+		}
+
+		/// <inheritdoc cref="GetStringFromCollection(IDictionary)"/>
+		private static string GetStringFromCollection(IEnumerable source)
+		{
+			string res="";
+			foreach(var sel in source)
+				res+=(res.Length>0 ? "," : "") + GetStringRepresentation(sel, true);
+			return "["+res+"]";
+		}
+		/// <summary>
+		/// Generates a JSON <see cref="string"/> representation of the collection.
+		/// </summary>
+		/// <param name="source">The collection to serialize.</param>
+		/// <returns>a <see cref="string"/> representation of the collection.</returns>
+		private static string GetStringFromCollection(IDictionary source)
+		{
+			string res="";
+			foreach(var sel in source.Keys)
+				res+=(res.Length>0 ? "," : "") + GetStringRepresentation(sel, true) + ":" + GetStringRepresentation(source[sel]!, true);
+			return "{"+res+"}";
 		}
 
 

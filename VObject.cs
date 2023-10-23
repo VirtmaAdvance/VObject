@@ -142,8 +142,8 @@ namespace VObject
 				return excVal.Message;
 			if(value is char charVal)
 				return charVal.ToString();
-			if(value.Is(typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double)))
-				return "TEST";
+			if(value.IsNumber())
+				return value.ToString();
 			return "";
 		}
 

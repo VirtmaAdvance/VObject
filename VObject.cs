@@ -155,7 +155,7 @@ namespace VObject
 
 		private static string Serialize(System.Reflection.MemberInfo value)
 		{
-
+			return GetAccessModifier(value) + " " + (value.
 		}
 		/// <summary>
 		/// Gets the access modifier of the member.

@@ -54,5 +54,7 @@ namespace VObject.Numbers
 				throw new ArgumentException("The value must be a non-null numerical value.");
 		}
 
+		public static VNumber operator 
+
 	}
 }

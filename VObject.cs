@@ -33,14 +33,13 @@ namespace VObject
 		/// Creates a new instance of the <see cref="VObject"/> class.
 		/// </summary>
 		/// <param name="value">Any value.</param>
-		public VObject(object value)
-		{
-			Value=value;
-		}
+		public VObject(object value) => Value=value;
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(string value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(char value) => new(value);
+		/// <inheritdoc cref="VObject(object)"/>
+		public static implicit operator VObject(sbyte value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(byte value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
@@ -113,10 +112,17 @@ namespace VObject
 		public static implicit operator VObject(CollectionBase value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(Comparer value) => new(value);
-
-
-		public string ToString() => GetStringRepresentation(Value);
-
+		/// <summary>
+		/// Gets the <see cref="string"/> representation of this object.
+		/// </summary>
+		/// <returns></returns>
+		public new string ToString() => GetStringRepresentation(Value);
+		/// <summary>
+		/// Gets the <see cref="string"/> representation of an object.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="addQuotes"></param>
+		/// <returns></returns>
 		public static string GetStringRepresentation(object value, bool addQuotes=false)
 		{
 			if(value is null)
@@ -143,19 +149,28 @@ namespace VObject
 				return GetStringFromCollection(enumerableVal);
 			return value.ToString()!;
 		}
-
+		/// <summary>
+		/// Gets the string from the class object.
+		/// </summary>
+		/// <param name="classObject"></param>
+		/// <returns></returns>
 		private static string GetStringFromClass(object classObject)
 		{
 			Type type=classObject.GetType();
 			System.Reflection.MemberInfo[] l=type.GetMembers();
 			string res="class " + classObject.ToString() + "{";
 			foreach(var sel in l)
-				res+="\n\t"+
+				res+="\n\t"+Serialize(sel);
+			return res;
 		}
-
+		/// <summary>
+		/// Serializes an object.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		private static string Serialize(System.Reflection.MemberInfo value)
 		{
-			return GetAccessModifier(value) + " " + (value.
+			return GetAccessModifier(value) + " " + (value.Name);
 		}
 		/// <summary>
 		/// Gets the access modifier of the member.
@@ -177,7 +192,6 @@ namespace VObject
 			}
 			return "UNKNOWN";
 		}
-
 		/// <inheritdoc cref="GetStringFromCollection(IDictionary)"/>
 		private static string GetStringFromCollection(IEnumerable source)
 		{
@@ -198,7 +212,6 @@ namespace VObject
 				res+=(res.Length>0 ? "," : "") + GetStringRepresentation(sel, true) + ":" + GetStringRepresentation(source[sel]!, true);
 			return "{"+res+"}";
 		}
-
 
 	}
 }

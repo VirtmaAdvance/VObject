@@ -54,7 +54,7 @@ namespace VObject
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <summary>Determines if the <paramref name="value"/> is a number.</summary>
-		public static bool IsNumber(this object value) => value.Is(typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double));
+		public static bool IsNumber(this object value) => value.Is(typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double));
 
 	}
 }

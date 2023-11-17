@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace VObject
 {
+	/// <summary>
+	/// Provides object manipulation extension methods.
+	/// </summary>
 	public static class ObjectManipulationExt
 	{
-
+		/// <summary>
+		/// Appends the parameters to the object.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="values"></param>
+		/// <returns></returns>
 		public static object? Append(this object source, params object[] values)
 		{
 			object? res=default;

@@ -54,7 +54,19 @@ namespace VObject
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <summary>Determines if the <paramref name="value"/> is a number.</summary>
-		public static bool IsNumber(this object value) => value.Is(typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double));
+		public static bool IsNumber(this object value) => value.Is(typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double), typeof(bool));
+		/// <inheritdoc cref="Is(object, Type[])"/>
+		/// <summary>
+		/// Determines if the <paramref name="value"/> is an unsigned number.
+		/// </summary>
+		public static bool IsNumberUnsigned(this object value) => value.Is(typeof(sbyte), typeof(ushort), typeof(uint), typeof(ulong));
+		/// <summary>
+		/// Determines if the <paramref name="value"/> contains all of the given <paramref name="flags"/>.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="flags"></param>
+		/// <returns></returns>
+		public static bool HasFlags(this Enum value, params Enum[] flags) => flags.All(q=> value.HasFlag(q));
 
 	}
 }

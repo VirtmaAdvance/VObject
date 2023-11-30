@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VObject.Numbers;
 
 namespace VObject
 {
@@ -52,8 +48,10 @@ namespace VObject
 			}
 			else if(source.IsNumber())
 			{
+				VNumber tmp=new();
 				foreach(var sel in values)
-					res+=sel;
+					tmp+=new VNumber(sel);
+				res=tmp;
 			}
 			return res;
 		}

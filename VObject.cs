@@ -1,16 +1,17 @@
 ﻿using System.Collections;
+using System.Text;
 
 namespace VObject
 {
 	/// <summary>
 	/// An advanced <see cref="object"/> class.
 	/// </summary>
-	public class VObject : object
+	public class VObject : object, IEquatable<VObject>, IComparable<VObject>, IDisposable, ICloneable, IConvertible, IFormattable
 	{
 		/// <summary>
 		/// The value to store.
 		/// </summary>
-		public object Value { get; set; }
+		public object? Value { get; set; }
 		/// <summary>
 		/// Indicates whether the value is <see langword="null"/>.
 		/// </summary>
@@ -22,7 +23,7 @@ namespace VObject
 		/// <summary>
 		/// Indicates whether the value is a COMObject.
 		/// </summary>
-		public bool IsComObject => NotNull && System.Runtime.InteropServices.Marshal.IsComObject(Value);
+		public bool IsComObject => NotNull && System.Runtime.InteropServices.Marshal.IsComObject(Value!);
 		/// <summary>
 		/// Gets the <see cref="Type"/> object.
 		/// </summary>
@@ -33,7 +34,7 @@ namespace VObject
 		/// Creates a new instance of the <see cref="VObject"/> class.
 		/// </summary>
 		/// <param name="value">Any value.</param>
-		public VObject(object value) => Value=value;
+		public VObject(object? value) => Value=value;
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(string value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
@@ -123,7 +124,7 @@ namespace VObject
 		/// <param name="value"></param>
 		/// <param name="addQuotes"></param>
 		/// <returns></returns>
-		public static string GetStringRepresentation(object value, bool addQuotes=false)
+		public static string GetStringRepresentation(object? value, bool addQuotes=false)
 		{
 			if(value is null)
 				return "null";
@@ -212,6 +213,180 @@ namespace VObject
 				res+=(res.Length>0 ? "," : "") + GetStringRepresentation(sel, true) + ":" + GetStringRepresentation(source[sel]!, true);
 			return "{"+res+"}";
 		}
+/// <inheritdoc/>
 
+		public bool Equals(VObject? other)
+		{
+			return base.Equals(other);
+		}
+/// <inheritdoc/>
+
+		public int CompareTo(VObject? value)
+		{
+			object? other=value?.Value;
+			if(other is null && Value is null)
+				return 0;
+			if(other is null && Value is not null)
+				return 1;
+			if(Value is null)
+				return -1;
+			if(other!.Equals(Value))
+				return 0;
+			if(other is bool && Value is bool)
+				return ((bool)other)==true && ((bool)Value==false) ? -1 : 1;
+			if(other.IsNumber() && Value.IsNumber())
+				return Convert.ToDouble(other)>Convert.ToDouble(Value) ? -1 : 1;
+			if(other is char && Value is char || other is char && Value.IsNumber() || other.IsNumber() && Value is char)
+				return Convert.ToDouble(other)<Convert.ToDouble(Value) ? -1 : 1;
+			if(other is string && Value is string)
+			{
+				string strOther=(other as string)!;
+				string strValue=(Value as string)!;
+				int len=Math.Min(strOther.Length, strValue.Length);
+				for(int i = 0;i<len;i++)
+				{
+					if(strOther[i]>strValue[i])
+						return -1;
+					else if(strOther[i]<strValue[i])
+						return 1;
+				}
+				if(strOther.Length>strValue.Length)
+					return -1;
+				return 1;
+		}
+			string strOther0=other.ToString()!;
+			string strValue0=Value.ToString()!;
+			int len0=Math.Min(strOther0.Length, strValue0.Length);
+			for(int i = 0;i<len0;i++)
+			{
+				if(strOther0[i]>strValue0[i])
+					return -1;
+				else if(strOther0[i]<strValue0[i])
+					return 1;
+			}
+			if(strOther0.Length>strValue0.Length)
+				return -1;
+			return 1;
+		}
+/// <inheritdoc/>
+
+		public void Dispose()
+		{
+			Value=null;
+		}
+/// <inheritdoc/>
+
+		public object Clone()
+		{
+			return new VObject(Value);
+		}
+/// <inheritdoc/>
+
+		public TypeCode GetTypeCode()
+		{
+			return TypeCode.Object;
+		}
+/// <inheritdoc/>
+
+		public bool ToBoolean(IFormatProvider? provider)
+		{
+			return Convert.ToBoolean(Value);
+		}
+/// <inheritdoc/>
+
+		public byte ToByte(IFormatProvider? provider)
+		{
+			return Convert.ToByte(Value);
+		}
+/// <inheritdoc/>
+
+		public char ToChar(IFormatProvider? provider)
+		{
+			return Convert.ToChar(Value);
+		}
+/// <inheritdoc/>
+
+		public DateTime ToDateTime(IFormatProvider? provider)
+		{
+			return Convert.ToDateTime(Value);
+		}
+/// <inheritdoc/>
+
+		public decimal ToDecimal(IFormatProvider? provider)
+		{
+			return Convert.ToDecimal(Value);
+		}
+/// <inheritdoc/>
+
+		public double ToDouble(IFormatProvider? provider)
+		{
+			return Convert.ToDouble(Value);
+		}
+/// <inheritdoc/>
+
+		public short ToInt16(IFormatProvider? provider)
+		{
+			return Convert.ToInt16(Value);
+		}
+/// <inheritdoc/>
+
+		public int ToInt32(IFormatProvider? provider)
+		{
+			return Convert.ToInt32(Value);
+		}
+/// <inheritdoc/>
+
+		public long ToInt64(IFormatProvider? provider)
+		{
+			return Convert.ToInt64(Value);
+		}
+/// <inheritdoc/>
+
+		public sbyte ToSByte(IFormatProvider? provider)
+		{
+			return Convert.ToSByte(Value);
+		}
+/// <inheritdoc/>
+
+		public float ToSingle(IFormatProvider? provider)
+		{
+			return Convert.ToSingle(Value);
+		}
+/// <inheritdoc/>
+
+		public string ToString(IFormatProvider? provider)
+		{
+			return Value?.ToString()??"null";
+		}
+/// <inheritdoc/>
+
+		public object ToType(Type conversionType, IFormatProvider? provider)
+		{
+			return Value is Type ? (Type)Value : Value?.GetType()??typeof(VObject);
+		}
+/// <inheritdoc/>
+
+		public ushort ToUInt16(IFormatProvider? provider)
+		{
+			return Convert.ToUInt16(Value);
+		}
+/// <inheritdoc/>
+
+		public uint ToUInt32(IFormatProvider? provider)
+		{
+			return Convert.ToUInt32(Value);
+		}
+/// <inheritdoc/>
+
+		public ulong ToUInt64(IFormatProvider? provider)
+		{
+			return Convert.ToUInt64(Value);
+		}
+/// <inheritdoc/>
+
+		public string ToString(string? format, IFormatProvider? formatProvider)
+		{
+			return Value?.ToString()??"null";
+		}
 	}
 }

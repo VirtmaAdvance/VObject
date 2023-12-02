@@ -18,15 +18,15 @@ namespace VObject
 			object? res=default;
 			if(source is Enum enumValue)
 			{
-				Type type=Enum.GetUnderlyingType(enumValue.GetType());
-				if(type==typeof(int))
+				Type type=enumValue.GetUnderlyingType();
+				if(type.Is(typeof(int)))
 				{
 					var tmp=Convert.ToInt32(enumValue);
 					foreach(var sel in (Enum[])values)
 						tmp|=Convert.ToInt32(sel);
 					res=Convert.ChangeType(res, type);
 				}
-				else if(type==typeof(long))
+				else if(type.Is(typeof(long)))
 				{
 					var tmp=Convert.ToInt64(enumValue);
 					foreach(var sel in (Enum[])values)

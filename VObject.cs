@@ -11,7 +11,7 @@ namespace VObject
 		/// <summary>
 		/// The value to store.
 		/// </summary>
-		public object? Value { get; set; }
+		protected object? Value { get; set; }
 		/// <summary>
 		/// Indicates whether the value is <see langword="null"/>.
 		/// </summary>
@@ -23,11 +23,11 @@ namespace VObject
 		/// <summary>
 		/// Indicates whether the value is a COMObject.
 		/// </summary>
-		public bool IsComObject => NotNull && System.Runtime.InteropServices.Marshal.IsComObject(Value!);
+		public bool IsComObject => NotNull && Value!.IsComObject();
 		/// <summary>
 		/// Gets the <see cref="Type"/> object.
 		/// </summary>
-		public Type? DataType => (!IsComObject) ? Value?.GetType() : null;
+		public Type? DataType => GetType();
 
 
 		/// <summary>
@@ -126,29 +126,44 @@ namespace VObject
 		/// <returns></returns>
 		public static string GetStringRepresentation(object? value, bool addQuotes=false)
 		{
-			if(value is null)
-				return "null";
+			//if(value is null)
+			//	return "null";
 			if(System.Runtime.InteropServices.Marshal.IsComObject(value))
 				return "COMObject";
-			if(value is string strVal)
-				return addQuotes ? "\""+strVal+"\"" : strVal;
-			if(value is Exception valueAsException)
-				return valueAsException.Source + ": " + valueAsException.Message + "\r\n" + valueAsException.StackTrace;
-			if(value is char charVal)
-				return addQuotes ? "'" + charVal.ToString() + "'" : charVal.ToString();
-			if(value is bool boolVal)
-				return boolVal ? "true" : "false";
-			if(value is byte byteValue)
-				return byteValue.ToString("X2");
-			if(value.IsNumber())
-				return value.ToString()!;
-			if(value is DateTime dtVal)
-				return dtVal.ToString("MM-dd-yyyy | hh:mm:ss:fffffff tt");
-			if(value is IDictionary dictVal)
-				return GetStringFromCollection(dictVal);
-			if(value is IEnumerable enumerableVal)
-				return GetStringFromCollection(enumerableVal);
-			return value.ToString()!;
+			string result=value switch
+			{
+				null => "null",
+				string strVal => strVal,
+				Exception valueAsException => $"{valueAsException.Source}: {valueAsException.Message}\r\n{valueAsException.StackTrace}",
+				char charVal => charVal.ToString(),
+				bool boolVal => boolVal.ToString().ToLower(),
+				byte byteValue => byteValue.ToString("X2"),
+				_ when value.IsNumber() => value.ToString()!,
+				DateTime dtVal => dtVal.ToString("MM-dd-yyyy | hh:mm:ss:fffffff tt"),
+				IDictionary dictVal => GetStringFromCollection(dictVal),
+				IEnumerable enumerableVal => GetStringFromCollection(enumerableVal),
+				_ => value.ToString()!
+			};
+			return result;
+			//if(value is string strVal)
+			//	return addQuotes ? "\""+strVal+"\"" : strVal;
+			//if(value is Exception valueAsException)
+			//	return valueAsException.Source + ": " + valueAsException.Message + "\r\n" + valueAsException.StackTrace;
+			//if(value is char charVal)
+			//	return addQuotes ? "'" + charVal.ToString() + "'" : charVal.ToString();
+			//if(value is bool boolVal)
+			//	return boolVal ? "true" : "false";
+			//if(value is byte byteValue)
+			//	return byteValue.ToString("X2");
+			//if(value.IsNumber())
+			//	return value.ToString()!;
+			//if(value is DateTime dtVal)
+			//	return dtVal.ToString("MM-dd-yyyy | hh:mm:ss:fffffff tt");
+			//if(value is IDictionary dictVal)
+			//	return GetStringFromCollection(dictVal);
+			//if(value is IEnumerable enumerableVal)
+			//	return GetStringFromCollection(enumerableVal);
+			//return value.ToString()!;
 		}
 		/// <summary>
 		/// Gets the string from the class object.
@@ -180,18 +195,19 @@ namespace VObject
 		/// <returns></returns>
 		private static string GetAccessModifier(System.Reflection.MemberInfo value)
 		{
-			switch(value.MemberType)
-			{
-				case System.Reflection.MemberTypes.Field:
-					return ((System.Reflection.FieldInfo)value).IsPublic ? "public" : ((System.Reflection.FieldInfo)value).IsPrivate ? "private" : ((System.Reflection.FieldInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
-				case System.Reflection.MemberTypes.Method:
-					return ((System.Reflection.MethodInfo)value).IsPublic ? "public" : ((System.Reflection.MethodInfo)value).IsPrivate ? "private" : ((System.Reflection.MethodInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
-				case System.Reflection.MemberTypes.Constructor:
-					return ((System.Reflection.ConstructorInfo)value).IsPublic ? "public" : ((System.Reflection.ConstructorInfo)value).IsPrivate ? "private" : ((System.Reflection.ConstructorInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
-				case System.Reflection.MemberTypes.TypeInfo:
-					return ((System.Reflection.TypeInfo)value).IsPublic ? "public" : ((System.Reflection.TypeInfo)value).IsNotPublic ? "private" : "UNKNOWN";
-			}
-			return "UNKNOWN";
+			return value.GetAccessModifier();
+			//switch(value.MemberType)
+			//{
+			//	case System.Reflection.MemberTypes.Field:
+			//		return ((System.Reflection.FieldInfo)value).IsPublic ? "public" : ((System.Reflection.FieldInfo)value).IsPrivate ? "private" : ((System.Reflection.FieldInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
+			//	case System.Reflection.MemberTypes.Method:
+			//		return ((System.Reflection.MethodInfo)value).IsPublic ? "public" : ((System.Reflection.MethodInfo)value).IsPrivate ? "private" : ((System.Reflection.MethodInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
+			//	case System.Reflection.MemberTypes.Constructor:
+			//		return ((System.Reflection.ConstructorInfo)value).IsPublic ? "public" : ((System.Reflection.ConstructorInfo)value).IsPrivate ? "private" : ((System.Reflection.ConstructorInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
+			//	case System.Reflection.MemberTypes.TypeInfo:
+			//		return ((System.Reflection.TypeInfo)value).IsPublic ? "public" : ((System.Reflection.TypeInfo)value).IsNotPublic ? "private" : "UNKNOWN";
+			//}
+			//return "UNKNOWN";
 		}
 		/// <inheritdoc cref="GetStringFromCollection(IDictionary)"/>
 		private static string GetStringFromCollection(IEnumerable source)
@@ -253,7 +269,7 @@ namespace VObject
 				if(strOther.Length>strValue.Length)
 					return -1;
 				return 1;
-		}
+			}
 			string strOther0=other.ToString()!;
 			string strValue0=Value.ToString()!;
 			int len0=Math.Min(strOther0.Length, strValue0.Length);
@@ -388,5 +404,34 @@ namespace VObject
 		{
 			return Value?.ToString()??"null";
 		}
+
+		public override bool Equals(object obj)
+		{
+			if(ReferenceEquals(this, obj))
+			{
+				return true;
+			}
+
+			if(ReferenceEquals(obj, null))
+			{
+				return false;
+			}
+
+			throw new NotImplementedException();
+		}
+		/// <inheritdoc/>
+		public override int GetHashCode() => base.GetHashCode();
+		/// <inheritdoc/>
+		public static bool operator ==(VObject left, VObject right) => ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.Equals(right);
+		/// <inheritdoc/>
+		public static bool operator !=(VObject left, VObject right) => !(left==right);
+		/// <inheritdoc/>
+		public static bool operator <(VObject left, VObject right) => ReferenceEquals(left, null) ? !ReferenceEquals(right, null) : left.CompareTo(right)<0;
+		/// <inheritdoc/>
+		public static bool operator <=(VObject left, VObject right) => ReferenceEquals(left, null)||left.CompareTo(right)<=0;
+		/// <inheritdoc/>
+		public static bool operator >(VObject left, VObject right) => !ReferenceEquals(left, null)&&left.CompareTo(right)>0;
+		/// <inheritdoc/>
+		public static bool operator >=(VObject left, VObject right) => ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right)>=0;
 	}
 }

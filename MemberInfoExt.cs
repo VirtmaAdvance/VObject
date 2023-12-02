@@ -29,7 +29,6 @@ namespace VObject
 			}
 			return "UNKNOWN";
 		}
-
 		/// <summary>
 		/// Gets the configurations of the <paramref name="value"/> and generates a <see cref="MemberInfoFlags"/> object consisting of the configurations for the member.
 		/// </summary>

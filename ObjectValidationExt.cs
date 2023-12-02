@@ -53,6 +53,18 @@ namespace VObject
 			return false;
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
+		/// <param name="value">An <see cref="Type"/> representation of a value that will be checked.</param>
+		/// <param name="types">An <see cref="Type"/> array representing the data-types to check for.</param>
+		public static bool Is(this Type value, params Type[] types)
+		{
+			if(value.NotNull() && !value.IsComObject())
+			{
+				types??=Array.Empty<Type>();
+				return types.Any(q =>value.IsAssignableFrom(q.GetType()));
+			}
+			return false;
+		}
+		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <summary>Determines if the <paramref name="value"/> is a number.</summary>
 		public static bool IsNumber(this object value) => value.Is(typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double), typeof(bool));
 		/// <inheritdoc cref="Is(object, Type[])"/>

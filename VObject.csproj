@@ -5,12 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <ApplicationIcon>Virtma Logo.ico</ApplicationIcon>
+    <ApplicationIcon>Virtma Logo V2.ico</ApplicationIcon>
     <SignAssembly>True</SignAssembly>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>VObject</Title>
     <Authors>Daniel K. Valente</Authors>
-    <Company>D.O.F.T.</Company>
+    <Company>VirtmaAdvance</Company>
     <Product>VAdvance</Product>
     <Description>A more advanced object that inherits from the object class.
 Provides additional information on an object, more functionalities, and implicit conversions.</Description>
@@ -22,10 +22,28 @@ Provides additional information on an object, more functionalities, and implicit
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageIcon>ezgif-3-57d9c1e68a.png</PackageIcon>
+    <FileVersion>0.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Virtma Logo.ico" />
+    <Content Include="Virtma Logo V2.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\kekoa\Downloads\ezgif-3-57d9c1e68a.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Virtma Logo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

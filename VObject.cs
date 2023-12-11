@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Text;
 
 namespace VObject
 {
@@ -92,7 +91,7 @@ namespace VObject
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(Attribute value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
-		public static implicit operator VObject(System.IO.FileSystemInfo value) => new(value);
+		public static implicit operator VObject(FileSystemInfo value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(System.Reflection.Pointer value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
@@ -126,8 +125,6 @@ namespace VObject
 		/// <returns></returns>
 		public static string GetStringRepresentation(object? value, bool addQuotes=false)
 		{
-			//if(value is null)
-			//	return "null";
 			if(System.Runtime.InteropServices.Marshal.IsComObject(value))
 				return "COMObject";
 			string result=value switch
@@ -145,25 +142,6 @@ namespace VObject
 				_ => value.ToString()!
 			};
 			return result;
-			//if(value is string strVal)
-			//	return addQuotes ? "\""+strVal+"\"" : strVal;
-			//if(value is Exception valueAsException)
-			//	return valueAsException.Source + ": " + valueAsException.Message + "\r\n" + valueAsException.StackTrace;
-			//if(value is char charVal)
-			//	return addQuotes ? "'" + charVal.ToString() + "'" : charVal.ToString();
-			//if(value is bool boolVal)
-			//	return boolVal ? "true" : "false";
-			//if(value is byte byteValue)
-			//	return byteValue.ToString("X2");
-			//if(value.IsNumber())
-			//	return value.ToString()!;
-			//if(value is DateTime dtVal)
-			//	return dtVal.ToString("MM-dd-yyyy | hh:mm:ss:fffffff tt");
-			//if(value is IDictionary dictVal)
-			//	return GetStringFromCollection(dictVal);
-			//if(value is IEnumerable enumerableVal)
-			//	return GetStringFromCollection(enumerableVal);
-			//return value.ToString()!;
 		}
 		/// <summary>
 		/// Gets the string from the class object.
@@ -196,18 +174,6 @@ namespace VObject
 		private static string GetAccessModifier(System.Reflection.MemberInfo value)
 		{
 			return value.GetAccessModifier();
-			//switch(value.MemberType)
-			//{
-			//	case System.Reflection.MemberTypes.Field:
-			//		return ((System.Reflection.FieldInfo)value).IsPublic ? "public" : ((System.Reflection.FieldInfo)value).IsPrivate ? "private" : ((System.Reflection.FieldInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
-			//	case System.Reflection.MemberTypes.Method:
-			//		return ((System.Reflection.MethodInfo)value).IsPublic ? "public" : ((System.Reflection.MethodInfo)value).IsPrivate ? "private" : ((System.Reflection.MethodInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
-			//	case System.Reflection.MemberTypes.Constructor:
-			//		return ((System.Reflection.ConstructorInfo)value).IsPublic ? "public" : ((System.Reflection.ConstructorInfo)value).IsPrivate ? "private" : ((System.Reflection.ConstructorInfo)value).IsFamilyOrAssembly ? "internal" : "protected";
-			//	case System.Reflection.MemberTypes.TypeInfo:
-			//		return ((System.Reflection.TypeInfo)value).IsPublic ? "public" : ((System.Reflection.TypeInfo)value).IsNotPublic ? "private" : "UNKNOWN";
-			//}
-			//return "UNKNOWN";
 		}
 		/// <inheritdoc cref="GetStringFromCollection(IDictionary)"/>
 		private static string GetStringFromCollection(IEnumerable source)

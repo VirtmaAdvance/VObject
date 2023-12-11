@@ -27,7 +27,7 @@ namespace VObject
 		/// <summary>
 		/// Gets the <see cref="Type"/> object.
 		/// </summary>
-		public Type? DataType => GetType();
+		public Type? DataType => !IsComObject ? Value?.GetType() : null;
 
 
 		/// <summary>

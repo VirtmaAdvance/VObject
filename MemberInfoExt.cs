@@ -125,7 +125,6 @@ namespace VObject
 				if(tmp.IsNotPublic)
 					res|=MemberInfoFlags.Private;
 			}
-
 			return res;
 		}
 

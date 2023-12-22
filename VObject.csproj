@@ -14,7 +14,7 @@
     <Product>VAdvance</Product>
     <Description>A more advanced object that inherits from the object class.
 Provides additional information on an object, more functionalities, and implicit conversions.</Description>
-    <Copyright>Apache-2.0</Copyright>
+    <Copyright>0BSD</Copyright>
     <PackageTags>object;vobject;obj;vadvance;data;information;cs;c#;processing;validation</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <PackAsTool>True</PackAsTool>

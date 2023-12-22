@@ -16,13 +16,13 @@
 Provides additional information on an object, more functionalities, and implicit conversions.</Description>
     <Copyright>0BSD</Copyright>
     <PackageTags>object;vobject;obj;vadvance;data;information;cs;c#;processing;validation</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <PackAsTool>True</PackAsTool>
     <PackageLicenseExpression>0BSD</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageIcon>ezgif-3-57d9c1e68a.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <FileVersion>0.0.0.1</FileVersion>
   </PropertyGroup>
 
@@ -30,14 +30,6 @@ Provides additional information on an object, more functionalities, and implicit
     <Content Include="Virtma Logo V2.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="C:\Users\kekoa\Downloads\ezgif-3-57d9c1e68a.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

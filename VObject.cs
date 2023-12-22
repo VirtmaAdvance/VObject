@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace VObject
+namespace VAdvanceObject
 {
 	/// <summary>
 	/// An advanced <see cref="object"/> class.

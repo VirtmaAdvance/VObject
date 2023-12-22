@@ -1,4 +1,4 @@
-﻿namespace VObject.Numbers
+﻿namespace VAdvanceObject.Numbers
 {
 	/// <summary>
 	/// Provides an enumeration indicating the data-type of a numerical value.

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace VObject
+namespace VAdvanceObject
 {
 	/// <summary>
 	/// Provides information extension methods for the <see cref="MemberInfo"/> class.

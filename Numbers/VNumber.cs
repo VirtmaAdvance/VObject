@@ -1,4 +1,4 @@
-﻿namespace VObject.Numbers
+﻿namespace VAdvanceObject.Numbers
 {
 	/// <summary>
 	/// Stores a numerical value and can dispense that value in the requested format.

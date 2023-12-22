@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace VObject
+namespace VAdvanceObject
 {
 	/// <summary>
 	/// Provides regular expression extension methods.

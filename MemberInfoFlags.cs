@@ -1,4 +1,4 @@
-﻿namespace VObject
+﻿namespace VAdvanceObject
 {
 	/// <summary>
 	/// Provides flag options to indicate the configurations of a class object's member.

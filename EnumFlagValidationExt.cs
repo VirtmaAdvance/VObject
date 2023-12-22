@@ -1,4 +1,4 @@
-﻿namespace VObject
+﻿namespace VAdvanceObject
 {
 	/// <summary>
 	/// Provides validation extension methods for the <see cref="Enum"/> class.

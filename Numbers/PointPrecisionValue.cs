@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VObject.Numbers
+﻿namespace VAdvanceObject.Numbers
 {
+	/// <summary>
+	/// Provides a data structure for point precision values.
+	/// </summary>
 	public struct PointPrecisionValue
 	{
 

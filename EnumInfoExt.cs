@@ -1,4 +1,4 @@
-﻿namespace VObject
+﻿namespace VAdvanceObject
 {
 	/// <summary>
 	/// Provides informational extension methods for the <see cref="Enum"/> class.

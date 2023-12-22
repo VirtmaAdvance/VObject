@@ -1,6 +1,6 @@
-﻿using VObject.Numbers;
+﻿using VAdvanceObject.Numbers;
 
-namespace VObject
+namespace VAdvanceObject
 {
 	/// <summary>
 	/// Provides object manipulation extension methods.

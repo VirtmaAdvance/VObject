@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VObject.Numbers
+﻿namespace VAdvanceObject.Numbers
 {
 	/// <summary>
 	/// Provides a means to store larger numerical values.

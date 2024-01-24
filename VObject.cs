@@ -162,19 +162,13 @@ namespace VAdvanceObject
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		private static string Serialize(System.Reflection.MemberInfo value)
-		{
-			return GetAccessModifier(value) + " " + (value.Name);
-		}
+		private static string Serialize(System.Reflection.MemberInfo value) => GetAccessModifier(value) + " " + (value.Name);
 		/// <summary>
 		/// Gets the access modifier of the member.
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		private static string GetAccessModifier(System.Reflection.MemberInfo value)
-		{
-			return value.GetAccessModifier();
-		}
+		private static string GetAccessModifier(System.Reflection.MemberInfo value) => value.GetAccessModifier();
 		/// <inheritdoc cref="GetStringFromCollection(IDictionary)"/>
 		private static string GetStringFromCollection(IEnumerable source)
 		{
@@ -197,10 +191,7 @@ namespace VAdvanceObject
 		}
 /// <inheritdoc/>
 
-		public bool Equals(VObject? other)
-		{
-			return base.Equals(other);
-		}
+		public bool Equals(VObject? other) => base.Equals(other);
 /// <inheritdoc/>
 
 		public int CompareTo(VObject? value)
@@ -258,131 +249,68 @@ namespace VAdvanceObject
 		}
 /// <inheritdoc/>
 
-		public object Clone()
-		{
-			return new VObject(Value);
-		}
+		public object Clone() => new VObject(Value);
 /// <inheritdoc/>
 
-		public TypeCode GetTypeCode()
-		{
-			return TypeCode.Object;
-		}
+		public TypeCode GetTypeCode() => TypeCode.Object;
 /// <inheritdoc/>
 
-		public bool ToBoolean(IFormatProvider? provider)
-		{
-			return Convert.ToBoolean(Value);
-		}
+		public bool ToBoolean(IFormatProvider? provider) => Convert.ToBoolean(Value);
 /// <inheritdoc/>
 
-		public byte ToByte(IFormatProvider? provider)
-		{
-			return Convert.ToByte(Value);
-		}
+		public byte ToByte(IFormatProvider? provider) => Convert.ToByte(Value);
 /// <inheritdoc/>
 
-		public char ToChar(IFormatProvider? provider)
-		{
-			return Convert.ToChar(Value);
-		}
+		public char ToChar(IFormatProvider? provider) => Convert.ToChar(Value);
 /// <inheritdoc/>
 
-		public DateTime ToDateTime(IFormatProvider? provider)
-		{
-			return Convert.ToDateTime(Value);
-		}
+		public DateTime ToDateTime(IFormatProvider? provider) => Convert.ToDateTime(Value);
 /// <inheritdoc/>
 
-		public decimal ToDecimal(IFormatProvider? provider)
-		{
-			return Convert.ToDecimal(Value);
-		}
+		public decimal ToDecimal(IFormatProvider? provider) => Convert.ToDecimal(Value);
 /// <inheritdoc/>
 
-		public double ToDouble(IFormatProvider? provider)
-		{
-			return Convert.ToDouble(Value);
-		}
+		public double ToDouble(IFormatProvider? provider) => Convert.ToDouble(Value);
 /// <inheritdoc/>
 
-		public short ToInt16(IFormatProvider? provider)
-		{
-			return Convert.ToInt16(Value);
-		}
+		public short ToInt16(IFormatProvider? provider) => Convert.ToInt16(Value);
 /// <inheritdoc/>
 
-		public int ToInt32(IFormatProvider? provider)
-		{
-			return Convert.ToInt32(Value);
-		}
+		public int ToInt32(IFormatProvider? provider) => Convert.ToInt32(Value);
 /// <inheritdoc/>
 
-		public long ToInt64(IFormatProvider? provider)
-		{
-			return Convert.ToInt64(Value);
-		}
+		public long ToInt64(IFormatProvider? provider) => Convert.ToInt64(Value);
 /// <inheritdoc/>
 
-		public sbyte ToSByte(IFormatProvider? provider)
-		{
-			return Convert.ToSByte(Value);
-		}
+		public sbyte ToSByte(IFormatProvider? provider) => Convert.ToSByte(Value);
 /// <inheritdoc/>
 
-		public float ToSingle(IFormatProvider? provider)
-		{
-			return Convert.ToSingle(Value);
-		}
+		public float ToSingle(IFormatProvider? provider) => Convert.ToSingle(Value);
 /// <inheritdoc/>
 
-		public string ToString(IFormatProvider? provider)
-		{
-			return Value?.ToString()??"null";
-		}
+		public string ToString(IFormatProvider? provider) => Value?.ToString()??"null";
 /// <inheritdoc/>
 
-		public object ToType(Type conversionType, IFormatProvider? provider)
-		{
-			return Value is Type ? (Type)Value : Value?.GetType()??typeof(VObject);
-		}
+		public object ToType(Type conversionType, IFormatProvider? provider) => Value is Type ? (Type)Value : Value?.GetType()??typeof(VObject);
 /// <inheritdoc/>
 
-		public ushort ToUInt16(IFormatProvider? provider)
-		{
-			return Convert.ToUInt16(Value);
-		}
+		public ushort ToUInt16(IFormatProvider? provider) => Convert.ToUInt16(Value);
 /// <inheritdoc/>
 
-		public uint ToUInt32(IFormatProvider? provider)
-		{
-			return Convert.ToUInt32(Value);
-		}
+		public uint ToUInt32(IFormatProvider? provider) => Convert.ToUInt32(Value);
 /// <inheritdoc/>
 
-		public ulong ToUInt64(IFormatProvider? provider)
-		{
-			return Convert.ToUInt64(Value);
-		}
+		public ulong ToUInt64(IFormatProvider? provider) => Convert.ToUInt64(Value);
 /// <inheritdoc/>
 
-		public string ToString(string? format, IFormatProvider? formatProvider)
-		{
-			return Value?.ToString()??"null";
-		}
+		public string ToString(string? format, IFormatProvider? formatProvider) => Value?.ToString()??"null";
 
 		public override bool Equals(object obj)
 		{
 			if(ReferenceEquals(this, obj))
-			{
 				return true;
-			}
-
 			if(ReferenceEquals(obj, null))
-			{
 				return false;
-			}
-
 			throw new NotImplementedException();
 		}
 		/// <inheritdoc/>

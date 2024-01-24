@@ -304,7 +304,12 @@ namespace VAdvanceObject
 /// <inheritdoc/>
 
 		public string ToString(string? format, IFormatProvider? formatProvider) => Value?.ToString()??"null";
-
+		/// <summary>
+		/// Determines if this object equals another.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
 		public override bool Equals(object obj)
 		{
 			if(ReferenceEquals(this, obj))

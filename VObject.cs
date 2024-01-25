@@ -310,7 +310,7 @@ namespace VAdvanceObject
 		/// <param name="obj"></param>
 		/// <returns></returns>
 		/// <exception cref="NotImplementedException"></exception>
-		public override bool Equals(object obj)
+		public override bool Equals(object? obj)
 		{
 			if(ReferenceEquals(this, obj))
 				return true;

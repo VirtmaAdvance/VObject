@@ -125,7 +125,7 @@ namespace VAdvanceObject
 		/// <returns></returns>
 		public static string GetStringRepresentation(object? value, bool addQuotes=false)
 		{
-			if(System.Runtime.InteropServices.Marshal.IsComObject(value))
+			if(value.NotNull() && System.Runtime.InteropServices.Marshal.IsComObject(value!))
 				return "COMObject";
 			string result=value switch
 			{

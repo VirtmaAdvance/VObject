@@ -392,14 +392,14 @@
 			throw new NotImplementedException();
 		}
 
-		public static bool operator <(VNumber left, VNumber right)
-		{
-			return left.CompareTo(right)<0;
-		}
+		//public static bool operator <(VNumber left, VNumber right)
+		//{
+		//	return left.CompareTo(right)<0;
+		//}
 
-		public static bool operator >(VNumber left, VNumber right)
-		{
-			return left.CompareTo(right)>0;
-		}
+		//public static bool operator >(VNumber left, VNumber right)
+		//{
+		//	return left.CompareTo(right)>0;
+		//}
 	}
 }

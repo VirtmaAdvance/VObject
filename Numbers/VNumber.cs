@@ -374,12 +374,32 @@
 
 		int IComparable<VNumber>.CompareTo(VNumber other)
 		{
-			throw new NotImplementedException();
+			return other.LongValue>LongValue ? -1 : other.LongValue>LongValue ? 1 : 0;
 		}
 
 		bool IEquatable<VNumber>.Equals(VNumber other)
 		{
 			throw new NotImplementedException();
+		}
+
+		public override bool Equals(object obj)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override int GetHashCode()
+		{
+			throw new NotImplementedException();
+		}
+
+		public static bool operator <(VNumber left, VNumber right)
+		{
+			return left.CompareTo(right)<0;
+		}
+
+		public static bool operator >(VNumber left, VNumber right)
+		{
+			return left.CompareTo(right)>0;
 		}
 	}
 }

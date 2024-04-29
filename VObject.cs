@@ -255,7 +255,6 @@ namespace VAdvanceObject
 
 		public bool ToBoolean(IFormatProvider? provider) => Convert.ToBoolean(Value);
 /// <inheritdoc/>
-
 		public byte ToByte(IFormatProvider? provider) => Convert.ToByte(Value);
 /// <inheritdoc/>
 

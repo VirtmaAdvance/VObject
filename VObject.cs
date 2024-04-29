@@ -242,13 +242,11 @@ namespace VAdvanceObject
 			return 1;
 		}
 /// <inheritdoc/>
-
 		public void Dispose()
 		{
 			Value=null;
 		}
 /// <inheritdoc/>
-
 		public object Clone() => new VObject(Value);
 /// <inheritdoc/>
 

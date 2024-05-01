@@ -112,11 +112,39 @@ namespace VAdvanceObject
 		public static implicit operator VObject(CollectionBase value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(Comparer value) => new(value);
-		/// <summary>
-		/// Gets the <see cref="string"/> representation of this object.
-		/// </summary>
-		/// <returns></returns>
-		public new string ToString() => GetStringRepresentation(Value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.Regex value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.Capture value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.CaptureCollection value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.Group value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.GroupCollection value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.MatchEvaluator value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.RegexCompilationInfo value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.RegexOptions value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.RegexParseError value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.RegexParseException value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.RegexRunner value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(System.Text.RegularExpressions.RegexRunnerFactory value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(Numbers.VNumber value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(Type value) => new(value);
+        /// <summary>
+        /// Gets the <see cref="string"/> representation of this object.
+        /// </summary>
+        /// <returns></returns>
+        public new string ToString() => GetStringRepresentation(Value);
 		/// <summary>
 		/// Gets the <see cref="string"/> representation of an object.
 		/// </summary>
@@ -190,7 +218,6 @@ namespace VAdvanceObject
 			return "{"+res+"}";
 		}
 /// <inheritdoc/>
-
 		public bool Equals(VObject? other) => base.Equals(other);
 /// <inheritdoc/>
 

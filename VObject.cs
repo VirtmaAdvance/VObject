@@ -64,7 +64,7 @@ namespace VAdvanceObject
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(double value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
-		public static implicit operator VObject(System.Reflection.MemberInfo value) => new(value);
+		public static implicit operator VObject(MemberInfo value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(Array value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>

@@ -29,6 +29,108 @@ namespace VAdvanceObject
 			}
 			return "UNKNOWN";
 		}
+
+		private static MemberInfoFlags PrependMemberType(this MemberInfo value)
+		{
+			switch (value.MemberType)
+			{
+				case MemberTypes.TypeInfo:
+					return MemberInfoFlags.TypeInfo;
+				case MemberTypes.Field:
+					return MemberInfoFlags.Field;
+				case MemberTypes.Method:
+					return MemberInfoFlags.Method;
+				case MemberTypes.Constructor:
+					return MemberInfoFlags.Constructor;
+				case MemberTypes.Property:
+					return MemberInfoFlags.Property;
+				case MemberTypes.Event:
+					return MemberInfoFlags.IsEvent;
+				case MemberTypes.NestedType:
+					return MemberInfoFlags.IsNestedType;
+				case MemberTypes.Custom:
+					return MemberInfoFlags.IsCustom;
+				default:
+					return MemberInfoFlags.Unknown;
+			}
+		}
+
+		private static MemberInfoFlags GetFieldInfoFlags(this MemberInfo value, MemberInfoFlags res)
+		{
+			var tmp = (FieldInfo)value;
+			if (tmp.IsPublic)
+				res |= MemberInfoFlags.Public;
+			if (tmp.IsPrivate)
+				res |= MemberInfoFlags.Private;
+			if (tmp.IsAssembly)
+				res |= MemberInfoFlags.Internal;
+			if (tmp.IsFamily)
+				res |= MemberInfoFlags.Protected;
+			if (tmp.IsInitOnly)
+				res |= MemberInfoFlags.ReadOnly;
+			if (tmp.IsLiteral)
+				res |= MemberInfoFlags.IsConstant;
+			if (tmp.IsStatic)
+				res |= MemberInfoFlags.Static;
+			return res;
+		}
+
+		private static MemberInfoFlags GetMethodInfoFlags(this MemberInfo value, MemberInfoFlags res)
+		{
+			var tmp = (MethodInfo)value;
+			if (tmp.IsPublic)
+				res |= MemberInfoFlags.Public;
+			if (tmp.IsPrivate)
+				res |= MemberInfoFlags.Private;
+			if (tmp.IsAssembly)
+				res |= MemberInfoFlags.Internal;
+			if (tmp.IsFamily)
+				res |= MemberInfoFlags.Protected;
+			if (tmp.IsVirtual)
+				res |= MemberInfoFlags.Virtual;
+			if (tmp.IsFinal)
+				res |= MemberInfoFlags.IsConstant;
+			if (tmp.IsStatic)
+				res |= MemberInfoFlags.Static;
+			if (tmp.ReturnType == null)
+				res |= MemberInfoFlags.Void;
+			if (tmp.GetParameters().Length > 0)
+				res |= MemberInfoFlags.AcceptsParameters;
+			return res;
+		}
+
+		private static MemberInfoFlags GetConstructorFlags(this MemberInfo value, MemberInfoFlags res)
+		{
+			var tmp = (ConstructorInfo)value;
+			if (tmp.IsPublic)
+				res |= MemberInfoFlags.Public;
+			if (tmp.IsPrivate)
+				res |= MemberInfoFlags.Private;
+			if (tmp.IsAssembly)
+				res |= MemberInfoFlags.Internal;
+			if (tmp.IsFamily)
+				res |= MemberInfoFlags.Protected;
+			if (tmp.IsVirtual)
+				res |= MemberInfoFlags.Virtual;
+			if (tmp.IsFinal)
+				res |= MemberInfoFlags.IsConstant;
+			if (tmp.IsStatic)
+				res |= MemberInfoFlags.Static;
+			res |= MemberInfoFlags.Void;
+			if (tmp.GetParameters().Length > 0)
+				res |= MemberInfoFlags.AcceptsParameters;
+			return res;
+		}
+
+		private static MemberInfoFlags GetTypeInfoFlags(this MemberInfo value, MemberInfoFlags res)
+		{
+			var tmp = (TypeInfo)value;
+			if (tmp.IsPublic)
+				res |= MemberInfoFlags.Public;
+			if (tmp.IsNotPublic)
+				res |= MemberInfoFlags.Private;
+			return res;
+		}
 		/// <summary>
 		/// Gets the configurations of the <paramref name="value"/> and generates a <see cref="MemberInfoFlags"/> object consisting of the configurations for the member.
 		/// </summary>
@@ -36,95 +138,15 @@ namespace VAdvanceObject
 		/// <returns>a <see cref="MemberInfoFlags"/> enum representing the configurations of the <paramref name="value"/>.</returns>
 		public static MemberInfoFlags GetInfo(this MemberInfo value)
 		{
-			MemberInfoFlags res=default;
-			switch(value.MemberType)
-			{
-				case MemberTypes.TypeInfo:
-					res|=MemberInfoFlags.TypeInfo; break;
-				case MemberTypes.Field:
-					res|=MemberInfoFlags.Field; break;
-				case MemberTypes.Method:
-					res|=MemberInfoFlags.Method; break;
-				case MemberTypes.Constructor:
-					res|=MemberInfoFlags.Constructor; break;
-				case MemberTypes.Property:
-					res|=MemberInfoFlags.Property; break;
-				case MemberTypes.Event:
-					res|=MemberInfoFlags.IsEvent; break;
-				case MemberTypes.NestedType:
-					res|=MemberInfoFlags.IsNestedType; break;
-				case MemberTypes.Custom:
-					res|=MemberInfoFlags.IsCustom; break;
-			}
+			MemberInfoFlags res = PrependMemberType(value);
 			if(res.HasFlag(MemberInfoFlags.Field))
-			{
-				var tmp=(FieldInfo)value;
-				if(tmp.IsPublic)
-					res|=MemberInfoFlags.Public;
-				if(tmp.IsPrivate)
-					res|=MemberInfoFlags.Private;
-				if(tmp.IsAssembly)
-					res|=MemberInfoFlags.Internal;
-				if(tmp.IsFamily)
-					res|=MemberInfoFlags.Protected;
-				if(tmp.IsInitOnly)
-					res|=MemberInfoFlags.ReadOnly;
-				if(tmp.IsLiteral)
-					res|=MemberInfoFlags.IsConstant;
-				if(tmp.IsStatic)
-					res|=MemberInfoFlags.Static;
-			}
+				return GetFieldInfoFlags(value, res);
 			else if(res.HasFlag(MemberInfoFlags.Method))
-			{
-				var tmp=(MethodInfo)value;
-				if(tmp.IsPublic)
-					res|=MemberInfoFlags.Public;
-				if(tmp.IsPrivate)
-					res|=MemberInfoFlags.Private;
-				if(tmp.IsAssembly)
-					res|=MemberInfoFlags.Internal;
-				if(tmp.IsFamily)
-					res|=MemberInfoFlags.Protected;
-				if(tmp.IsVirtual)
-					res|=MemberInfoFlags.Virtual;
-				if(tmp.IsFinal)
-					res|=MemberInfoFlags.IsConstant;
-				if(tmp.IsStatic)
-					res|=MemberInfoFlags.Static;
-				if(tmp.ReturnType==null)
-					res|=MemberInfoFlags.Void;
-				if(tmp.GetParameters().Length>0)
-					res|=MemberInfoFlags.AcceptsParameters;
-			}
+				return GetMethodInfoFlags(value, res);
 			else if(res.HasFlag(MemberInfoFlags.Constructor))
-			{
-				var tmp=(ConstructorInfo)value;
-				if(tmp.IsPublic)
-					res|=MemberInfoFlags.Public;
-				if(tmp.IsPrivate)
-					res|=MemberInfoFlags.Private;
-				if(tmp.IsAssembly)
-					res|=MemberInfoFlags.Internal;
-				if(tmp.IsFamily)
-					res|=MemberInfoFlags.Protected;
-				if(tmp.IsVirtual)
-					res|=MemberInfoFlags.Virtual;
-				if(tmp.IsFinal)
-					res|=MemberInfoFlags.IsConstant;
-				if(tmp.IsStatic)
-					res|=MemberInfoFlags.Static;
-				res|=MemberInfoFlags.Void;
-				if(tmp.GetParameters().Length>0)
-					res|=MemberInfoFlags.AcceptsParameters;
-			}
+				return GetConstructorFlags(value, res);
 			else if(res.HasFlag(MemberInfoFlags.TypeInfo))
-			{
-				var tmp=(TypeInfo)value;
-				if(tmp.IsPublic)
-					res|=MemberInfoFlags.Public;
-				if(tmp.IsNotPublic)
-					res|=MemberInfoFlags.Private;
-			}
+				return GetTypeInfoFlags(value, res);
 			return res;
 		}
 

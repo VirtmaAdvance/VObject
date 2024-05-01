@@ -48,8 +48,10 @@ namespace VAdvanceObject
 		public static implicit operator VObject(ushort value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(int value) => new(value);
-		/// <inheritdoc cref="VObject(object)"/>
-		public static implicit operator VObject(uint value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(nint value) => new(value);
+        /// <inheritdoc cref="VObject(object)"/>
+        public static implicit operator VObject(uint value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(long value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>

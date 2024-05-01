@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection;
 
 namespace VAdvanceObject
 {
@@ -142,6 +143,14 @@ namespace VAdvanceObject
         public static implicit operator VObject(Numbers.VNumber value) => new(value);
         /// <inheritdoc cref="VObject(object)"/>
         public static implicit operator VObject(Type value) => new(value);
+
+		/// <summary>
+		/// Gets the member information of the object.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public static MemberInfo[] GetMembers(object? value) => (value?.GetType()?.GetMembers()) ?? Array.Empty<MemberInfo>();
+
         /// <summary>
         /// Gets the <see cref="string"/> representation of this object.
         /// </summary>

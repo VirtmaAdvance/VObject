@@ -8,6 +8,12 @@ namespace VAdvanceObject
 	public static class ObjectManipulationExt
 	{
 		/// <summary>
+		/// Converts an object into a <see cref="VObject"/>.
+		/// </summary>
+		/// <param name="value">The <see cref="object"/> to convert.></param>
+		/// <returns>the <see cref="VObject"/> representation of the <paramref name="value"/>.</returns>
+		public static VObject ToVObject(this object? value) => new (value);
+		/// <summary>
 		/// Appends the parameters to the object.
 		/// </summary>
 		/// <param name="source"></param>

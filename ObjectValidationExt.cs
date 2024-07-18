@@ -20,7 +20,7 @@
 		/// <summary>
 		/// Determines whether the <paramref name="value"/> is a COMObject
 		/// </summary>
-		public static bool IsComObject(this object value) => value.NotNull() && System.Runtime.InteropServices.Marshal.IsComObject(value);
+		public static bool IsComObject(this object? value) => value.NotNull() && System.Runtime.InteropServices.Marshal.IsComObject(value!);
 		/// <inheritdoc cref="IsNull(object)"/>
 		/// <summary>
 		/// Determines if the <paramref name="value"/> inherits from one of the provided <paramref name="types"/>.
@@ -29,9 +29,9 @@
 		/// <param name="types">A <see cref="Type"/> array representing all of the types to check the <paramref name="value"/> data-type against.</param>
 		public static bool Is(this object value, params Type[] types)
 		{
-			if(value.NotNull() && !value.IsComObject())
+			if(!value.IsComObject())
 			{
-				types??=Array.Empty<Type>();
+				types??= [];
 				Type valueType=value.GetType();
 				return types.Any(q =>valueType.IsAssignableFrom(q));
 			}
@@ -42,7 +42,7 @@
 		/// <param name="types">An <see cref="object"/> array representing the data-types to check for.</param>
 		public static bool Is(this object value, params object[] types)
 		{
-			if(value.NotNull() && !value.IsComObject())
+			if(!value.IsComObject())
 			{
 				types??=Array.Empty<Type>();
 				Type valueType=value.GetType();
@@ -55,7 +55,7 @@
 		/// <param name="types">An <see cref="Type"/> array representing the data-types to check for.</param>
 		public static bool Is(this Type value, params Type[] types)
 		{
-			if(value.NotNull() && !value.IsComObject())
+			if(!value.IsComObject())
 			{
 				types??=Array.Empty<Type>();
 				return types.Any(q =>value.IsAssignableFrom(q.GetType()));

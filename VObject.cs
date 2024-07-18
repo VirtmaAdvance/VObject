@@ -314,7 +314,11 @@ namespace VAdvanceObject
 			return 1;
 		}
 		/// <inheritdoc/>
-		public void Dispose() => Value = null;
+		public void Dispose()
+		{
+			Value = null;
+			GC.SuppressFinalize(this);
+		}
 		/// <inheritdoc/>
 		public object Clone() => new VObject(Value);
 		/// <inheritdoc/>

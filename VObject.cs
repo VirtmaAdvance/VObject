@@ -36,6 +36,10 @@ namespace VAdvanceObject
 		/// Stores tag information.
 		/// </summary>
 		public readonly List<string> Tags;
+		/// <summary>
+		/// The version information about this object.
+		/// </summary>
+		public static Version VersionInfo => new(1, 2, 2, 10);
 
 
 		/// <summary>
@@ -44,7 +48,7 @@ namespace VAdvanceObject
 		/// <param name="value">Any value.</param>
 		public VObject(object? value)
 		{
-			Tags = new();
+			Tags = [];
 			Value = value;
 			Members = GetMembers();
 		}

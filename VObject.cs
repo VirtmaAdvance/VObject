@@ -15,15 +15,15 @@ namespace VAdvanceObject
 		/// <summary>
 		/// Indicates whether the value is <see langword="null"/>.
 		/// </summary>
-		public bool IsNull => Value is null;
+		public bool IsNull => Value.IsNull();
 		/// <summary>
 		/// Indicates whether the value is not <see langword="null"/>.
 		/// </summary>
-		public bool NotNull => Value is not null;
+		public bool NotNull => Value.NotNull();
 		/// <summary>
 		/// Indicates whether the value is a COMObject.
 		/// </summary>
-		public bool IsComObject => NotNull && Value!.IsComObject();
+		public bool IsComObject => Value!.IsComObject();
 		/// <summary>
 		/// Gets the <see cref="Type"/> object.
 		/// </summary>

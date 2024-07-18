@@ -269,19 +269,19 @@ namespace VAdvanceObject
 		public int CompareTo(VObject? value)
 		{
 			object? other = value?.Value;
-			if (other is null && Value is null)
+			if (other.IsNull() && Value.IsNull())
 				return 0;
-			if (other is null && Value is not null)
+			if (other.IsNull() && Value.NotNull())
 				return 1;
-			if (Value is null)
+			if (Value.IsNull())
 				return -1;
 			if (other!.Equals(Value))
 				return 0;
-			if (other is bool && Value is bool)
-				return ((bool)other) == true && ((bool)Value == false) ? -1 : 1;
-			if (other.IsNumber() && Value.IsNumber())
+			if (other is bool otherValueBool && Value is bool boolValue)
+				return otherValueBool == true && (boolValue == false) ? -1 : 1;
+			if (other!.IsNumber() && Value!.IsNumber())
 				return Convert.ToDouble(other) > Convert.ToDouble(Value) ? -1 : 1;
-			if (other is char && Value is char || other is char && Value.IsNumber() || other.IsNumber() && Value is char)
+			if (other is char && Value is char || other is char && Value!.IsNumber() || other.IsNumber() && Value is char)
 				return Convert.ToDouble(other) < Convert.ToDouble(Value) ? -1 : 1;
 			if (other is string && Value is string)
 			{
@@ -300,7 +300,7 @@ namespace VAdvanceObject
 				return 1;
 			}
 			string strOther0 = other.ToString()!;
-			string strValue0 = Value.ToString()!;
+			string strValue0 = Value!.ToString()!;
 			int len0 = Math.Min(strOther0.Length, strValue0.Length);
 			for (int i = 0; i < len0; i++)
 			{

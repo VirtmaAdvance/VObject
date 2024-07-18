@@ -141,7 +141,7 @@ namespace VAdvanceObject
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(System.Text.RegularExpressions.MatchEvaluator value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
-		public static implicit operator VObject(System.Text.RegularExpressions.RegexCompilationInfo value) => new(value);
+		public static implicit operator VObject(HttpMessageInvoker value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
 		public static implicit operator VObject(System.Text.RegularExpressions.RegexOptions value) => new(value);
 		/// <inheritdoc cref="VObject(object)"/>
@@ -359,7 +359,7 @@ namespace VAdvanceObject
 		{
 			if (ReferenceEquals(this, obj))
 				return true;
-			if (ReferenceEquals(obj, null))
+			if (obj is null)
 				return false;
 			throw new NotImplementedException();
 		}

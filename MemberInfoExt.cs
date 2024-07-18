@@ -14,8 +14,6 @@ namespace VAdvanceObject
 		/// <returns>a <see cref="string"/> representation of the result.</returns>
 		public static string GetAccessModifier(this MemberInfo value)
 		{
-			//var flags=value.GetInfo();
-			//return flags.HasFlag(MemberInfoFlags.Public);
 			switch(value.MemberType)
 			{
 				case MemberTypes.Field:

@@ -29,38 +29,26 @@
 		/// <param name="types">A <see cref="Type"/> array representing all of the types to check the <paramref name="value"/> data-type against.</param>
 		public static bool Is(this object value, params Type[] types)
 		{
-			if(!value.IsComObject())
-			{
-				types??= [];
-				Type valueType=value.GetType();
-				return types.Any(q =>valueType.IsAssignableFrom(q));
-			}
-			return false;
+            types ??= [];
+            Type valueType = value.GetType();
+			return !value.IsComObject() && types.Any(q => valueType.IsAssignableFrom(q));
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <param name="value">An <see cref="object"/> representation of a value that will be checked.</param>
 		/// <param name="types">An <see cref="object"/> array representing the data-types to check for.</param>
 		public static bool Is(this object value, params object[] types)
 		{
-			if(!value.IsComObject())
-			{
-				types??=Array.Empty<Type>();
-				Type valueType=value.GetType();
-				return types.Any(q =>valueType.IsAssignableFrom(q.GetType()));
-			}
-			return false;
+            types ??= [];
+            Type valueType = value.GetType();
+			return !value.IsComObject() && types.Any(q => valueType.IsAssignableFrom(q.GetType()));
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <param name="value">An <see cref="Type"/> representation of a value that will be checked.</param>
 		/// <param name="types">An <see cref="Type"/> array representing the data-types to check for.</param>
-		public static bool Is(this Type value, params Type[] types)
+		public static bool Is(this Type value, params Type[]? types)
 		{
-			if(!value.IsComObject())
-			{
-				types??=Array.Empty<Type>();
-				return types.Any(q =>value.IsAssignableFrom(q.GetType()));
-			}
-			return false;
+            types ??= [];
+			return !value.IsComObject() && types.Any(q => value.IsAssignableFrom(q.GetType()));
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <summary>Determines if the <paramref name="value"/> is a number.</summary>

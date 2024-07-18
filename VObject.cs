@@ -359,27 +359,20 @@ namespace VAdvanceObject
 		/// <param name="obj"></param>
 		/// <returns></returns>
 		/// <exception cref="NotImplementedException"></exception>
-		public override bool Equals(object? obj)
-		{
-			if (ReferenceEquals(this, obj))
-				return true;
-			if (obj is null)
-				return false;
-			throw new NotImplementedException();
-		}
+		public override bool Equals(object? obj) => ReferenceEquals(this, obj) || obj.IsNull();
 		/// <inheritdoc/>
 		public override int GetHashCode() => base.GetHashCode();
 		/// <inheritdoc/>
-		public static bool operator ==(VObject left, VObject right) => ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.Equals(right);
+		public static bool operator ==(VObject left, VObject right) => left.IsNull() ? right.IsNull() : left.Equals(right);
 		/// <inheritdoc/>
 		public static bool operator !=(VObject left, VObject right) => !(left == right);
 		/// <inheritdoc/>
-		public static bool operator <(VObject left, VObject right) => ReferenceEquals(left, null) ? !ReferenceEquals(right, null) : left.CompareTo(right) < 0;
+		public static bool operator <(VObject left, VObject right) => left.IsNull() ? right.NotNull() : left.CompareTo(right) < 0;
 		/// <inheritdoc/>
-		public static bool operator <=(VObject left, VObject right) => ReferenceEquals(left, null) || left.CompareTo(right) <= 0;
+		public static bool operator <=(VObject left, VObject right) => left.IsNull() || left.CompareTo(right) <= 0;
 		/// <inheritdoc/>
-		public static bool operator >(VObject left, VObject right) => !ReferenceEquals(left, null) && left.CompareTo(right) > 0;
+		public static bool operator >(VObject left, VObject right) => left.NotNull() && left.CompareTo(right) > 0;
 		/// <inheritdoc/>
-		public static bool operator >=(VObject left, VObject right) => ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right) >= 0;
+		public static bool operator >=(VObject left, VObject right) => left.IsNull() ? right.IsNull() : left.CompareTo(right) >= 0;
 	}
 }

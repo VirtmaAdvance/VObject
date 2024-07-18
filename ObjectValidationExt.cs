@@ -64,7 +64,7 @@
 		}
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <summary>Determines if the <paramref name="value"/> is a number.</summary>
-		public static bool IsNumber(this object value) => value.Is(typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double), typeof(bool));
+		public static bool IsNumber(this object value) => value.Is(typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(decimal), typeof(double), typeof(nint));
 		/// <inheritdoc cref="Is(object, Type[])"/>
 		/// <summary>
 		/// Determines if the <paramref name="value"/> is an unsigned number.

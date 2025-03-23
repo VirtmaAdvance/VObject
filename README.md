@@ -4,10 +4,6 @@
 
 <summary>About</summary>
 
-<details>
- <summary>My Summary</summary>
-</details>
-
 ### What Is VObject?
 
 `VObject` is a C# class library that utilizes the .NET 6.0 framework. It acts as an enhanced `object` where it provides additional `Type` information and operations.
